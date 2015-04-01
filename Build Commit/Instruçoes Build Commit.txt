@@ -1,0 +1,44 @@
+Tutoriais para instalar o jenkins e todas ferramentas necessárias.
+
+https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
+https://github.com/sebastianbergmann/phploc
+http://pear.pdepend.org/
+http://pear.phpmd.org/
+http://pear.php.net/package/PHP_CodeSniffer/download
+https://github.com/sebastianbergmann/phpcpd
+https://github.com/sebastianbergmann/phpdcd
+
+
+Após ter configurado o jenkins e instalados os plugins que foi mostrado nas imagens, executar os procedimentos abaixo.
+
+Atenção na pasta "Configuração em comum" tem mais imagens demonstrando a instalação dos plugins, configuração do smtp,envio de emails e criação de um usuario administrador para o projeto buildcommit
+
+eu ja criei um usuario adm jenkins
+usuario: usuario
+senha : senha
+
+O arquivo build.xml é o arquivo de configuração principal que contem instruções para criação de pastas execução das ferramentas phpcs,phpmd,depend etc que vão gerar os arquivos/dados produzidos pelas ferramentas. 
+
+O arquivo de configuração build.xml no projeto buildcommit sera gerado dinamicamente pelo shel script que tera o conteudo do arquivo shel.sh colado na configuração do jenkins como é demostrado nas imagens.
+
+Na pasta /var/lib/jenkins/jobs/nomedoprojeto/workspace/build/ ficam os logs produzidos pelas ferramentas.
+
+
+Caso foi seguido as configurações como nas imagens toda vez que alguem fizer um novo comit dentro de 1 minuto o jenkins verificara e construira o projeto escaneando apenas os arquivos comitados.
+
+Os Plugins vão apresentar um histórico de gráficos de avisos que as ferramentas geraram de todos os builds criados.
+
+
+Eu percebi que a maioria dos erros/avisos do php codesniffer e referente aos Tabs que possui 8 caracteres em branco pois isto é o padrão do linux. porem nos padrões de desenvolvimento é 4 espaços em branco. Fiz dois script para resolver isto caso o arquivo possua apenas Tabs de 8 caracteres. Caso  tiver de 4 e 8 caracteres misturados pode se realizar o processo porem os tabs de 4 caracteres não serão mantidos e estes tabs terão que ser feitos manualmente.
+O primeiro script corrigi apenas o arquivo especificado e segundo todos os arquivos php e class da pasta especificada.
+
+primeiro script
+# sintaxe ./formataTabTodosArquivos.sh nomeDaPastaOndeEstaoOsArquivosPhpEClass
+
+segundo script
+# sintaxe ./formataTabUnicoArquivo.sh pasta/arquivo.php ou arquivo.php caso esteje no diretorio
+
+
+
+
+

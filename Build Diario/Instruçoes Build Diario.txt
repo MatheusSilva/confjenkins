@@ -1,0 +1,71 @@
+cd /usr/share/php/PHP/CodeSniffer/Standards
+http://pear.php.net/manual/pt_BR/package.php.php-codesniffer.coding-standard-tutorial.php
+http://translate.googleusercontent.com/translate_c?depth=1&hl=pt-BR&prev=/search%3Fq%3Dphpcs%2Bstandard%26client%3Dubuntu%26channel%3Dfs%26biw%3D959%26bih%3D643&rurl=translate.google.com.br&sl=en&u=http://pear.php.net/manual/pt_BR/package.php.php-codesniffer.annotated-ruleset.php&usg=ALkJrhhEem8m2fx8JUVg3faYTSmA4_rayw
+
+A maioria dos arquivos tem um tab de 8 caracteres mas para desenvolvimento em php são 4 caracteres o comando abaixo muda isto no arquivo
+
+cat eventos/inscrAvaliacaoProf.php | expand -t4 > teste.php
+
+
+cat eventos/inscrAvaliacaoProf.php | expand -t8 > teste
+
+
+Tutoriais para instalar o jenkins e todas ferramentas necessárias.
+
+https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
+https://github.com/sebastianbergmann/phploc
+http://pear.pdepend.org/
+http://pear.phpmd.org/
+http://pear.php.net/package/PHP_CodeSniffer/download
+https://github.com/sebastianbergmann/phpcpd
+https://github.com/sebastianbergmann/phpdcd
+
+
+Após ter configurado o jenkins e instalados os plugins que foi mostrado nas imagens, executar os procedimentos abaixo.
+
+Atenção na pasta "Configuração em comum" tem mais imagens demonstrando a instalação dos plugins e configuração do smtp,envio de emails e criação de um usuario administrador para o projeto buildDiario
+
+eu ja criei um usuario adm jenkins
+usuario: usuario
+senha : senha
+
+cd /var/lib/jenkins/jobs/nomedoprojeto/workspace
+ls 
+touch build.xml
+
+O arquivo build.xml é o arquivo de configuração principal que contem instruções para criação de pastas execução das ferramentas phpcs,phpmd,depend etc que vão gerar os arquivos/dados produzidos pelas ferramentas. 
+
+é só copiar as informações do arquivo build.xml que tem na pasta.
+caso queira que os arquivos que serão verificados sejam outros e só adiconar/alterar/remover as pastas no seguinte trexo do build.xml
+
+ <property name="source1" value="campustour eventos inscrExtraVestibular mestrado 
+ portal portalAcad portalprof pos prouni selecao vestibular"/>
+
+ <property name="source2" value="campustour,eventos,inscrExtraVestibular,portal
+ ,portalAcad,portalprof,pos,prouni,selecao,vestibular" />
+ 
+
+Na pasta /var/lib/jenkins/jobs/nomedoprojeto/workspace/build/ ficam os logs produzidos pelas ferramentas.
+
+
+Se foi seguido as configurações como nas imagens todo dia as 3 da manha será construído automaticamente o projeto.
+
+Para construir manualmente um projeto basta selecioná-lo e clicar em Build Now.
+
+
+Os Plugins vão apresentar um histórico de gráficos de avisos que as ferramentas geraram de todos os builds criados.
+
+
+Eu percebi que a maioria dos erros/avisos do php codesniffer e referente aos Tabs que possui 8 caracteres em branco pois isto é o padrão do linux. porem nos padrões de desenvolvimento é 4 espaços em branco. Fiz dois script para resolver isto caso o arquivo possua apenas Tabs de 8 caracteres. Caso  tiver de 4 e 8 caracteres misturados pode se realizar o processo porem os tabs de 4 caracteres não serão mantidos e estes tabs terão que ser feitos manualmente.
+O primeiro script corrigi apenas o arquivo especificado e segundo todos os arquivos php e class da pasta especificada.
+
+primeiro script
+# sintaxe ./formataTabTodosArquivos.sh nomeDaPastaOndeEstaoOsArquivosPhpEClass
+
+segundo script
+# sintaxe ./formataTabUnicoArquivo.sh pasta/arquivo.php ou arquivo.php caso esteje no diretorio
+
+
+
+
+
